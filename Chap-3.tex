@@ -1,8 +1,5 @@
 \chapter{Model}
 
-%In this chapter we formulate two models of substance abuse that are very similar and only differ with regard to the component that describes the force of infection. The first model assumes that the factor influencing initiation after contact between a susceptible and a substance abuser is innovation on the part of the susceptible. \citep{Bruno} describe the innovators as that type of individuals who make a decision to adopt a certain other people in the society or their interaction with peers.
-%
-%The other model assumes that the factor at play in the individuals that are recruited from the susceptible population to the drug users population is imitation. \citep{Bruno} also gives a description of these individuals as adopters who respond  to the pressure of their environment and thus it influences the timing of innovation not necessarily depending on the decision of their adoption.
 
 In formulating the age structured model of substance abuse  we introduce the following parameters :
 
@@ -231,24 +228,125 @@ d(a,t)}{\partial t} + \frac{\partial d(a,t)}{\partial a}& = &\lambda(a,t) s(a,t)
  $q(a,0)=\varphi _{q} (a)$ \\
  
  $\lambda (t,a)= \int_{0}^{a} \beta (a,\upsilon)N(\upsilon) d (t,\upsilon) d \upsilon$\\
-\section{Existence and Uniqueness of the solution } 
+ 
+ All parameters and state variables of system (\ref{model2}) are assumed to non negative for $t\geq 0$.
+ 
+ \section{The Invariant Region}
+
+We will analyse the model system (\ref{model2}) in a biologically feasible region $\Omega$ which is our region of biological interest as follows:
+
+\begin{lemma}
+The region $ \Omega \in \mathb{R}^4$ is assumed positively invariant and attracting with respect to model system (\ref{model2}).
+\end{lemma}
+
+\begin{proof}
+Let $s(a,t),d(a,t),r(a,t),q(a,t)$ be the solution of model (\ref{model2}) with non negative initial conditions.
+ 
+ The first equation in system (\ref{model2}) is a von McKendrick Form with a solution of the form
+ \[ s(a,t) =
+  \begin{cases}
+    \theta (t) e^{-\int\limits_{0}^{a}\int\limits_{0}^{t} \lambda(\iota,\epsilon) \mathrm{d}\epsilon \mathrm{d}\iota}
+       & \quad \text{if } a \leq t\\
+    s(a-t,0) e^{-\int\limits_{a-t}^{a}\int\limits_{0}^{t} \lambda(\iota,\epsilon) \mathrm{d}\epsilon \mathrm{d}\iota} 
+       & \quad \text{if } a \geq t\\
+  \end{cases}
+\]
+Thus $s(a,t) \geq 0$ always.
+
+The second equation of the system  (\ref{model2})can be rewritten as 
+\begin{equation}\label{eqn2}
+\frac{\partial d(a,t)}{\partial t} + \frac{\partial d(a,t)}{\partial a}& \geq &-(\sigma(a)+\psi (a)) d(a,t)
+\end{equation}
+
+Again equation (\ref{eqn2}) is of von McKendrick Form with a solution of the form
+\[ d(a,t) \geq
+  \begin{cases}
+    0 & \quad \text{if } a \leq t\\
+    d(a-t,0) e^{-\int\limits_{a-t}^{a} (\sigma(\epsilon) + \psi(\epsilon)) \mathrm{d}\epsilon  
+       & \quad \text{if } a \geq t\\
+  \end{cases}
+\]
+Hence $d(a,t) \geq 0$ always.
+
+Taking the third equation of the system (\ref{model2}) and rewriting  it as follows
+\begin{equation}\label{eqn3}
+\frac{\partial r(a,t)}{\partial t} + \frac{\partial r(a,t)}{\partial a} &\geq &-(\rho(a) +\gamma(a) )r(a,t)
+\end{equation}
+
+Equation (\ref{eqn3}) is clearly a von McKendrick Form with a solution of the form
+\[ r(a,t) \geq
+  \begin{cases}
+    0 & \quad \text{if } a \leq t\\
+    r(a-t,0) e^{-\int\limits_{a-t}^{a} (\rho(\epsilon) + \gamma(\epsilon)) \mathrm{d}\epsilon  
+       & \quad \text{if } a \geq t\\
+  \end{cases}
+\]
+Hence $r(a,t) \geq 0$ always. 
+
+We now obtain the form of a solution for the last equation in system (\ref{model2}). 
+We first rewrite the equation as follows
+
+\begin{equation}\label{eqn4}
+\frac{\partial q(a,t)}{\partial t}+\frac{\partial q(a,t)}{\partial a} & = &-\omega(a) q(a,t)
+\end{equation}
+
+Equation (\ref{eqn4})is a von McKendrick Form whose solution is given as 
+\[ q(a,t) \geq
+  \begin{cases}
+    0 & \quad \text{if } a \leq t\\
+    q(a-t,0) e^{-\int\limits_{a-t}^{a} (\omega(\epsilon)) \mathrm{d}\epsilon  
+       & \quad \text{if } a \geq t\\
+  \end{cases}
+\]
+Again we have shown that $q(a,t)$ is always positive.
+
+Our system is bounded since we have that 
+\begin{equation}
+N(a,t) = s(a,t)+d(a,t)+r(a,t) + q(a,t) \nonumber
+\end{equation}
+ Thus $N(a,t) \geq 0$ always.
+ 
+ We also know that the total population has an upper bound from the previous calculation yielding the following result
+ \[ N(a,t) \leq
+  \begin{cases}
+    \theta (t) e^{-\int\limits_{0}^{a} \mu(\epsilon) \mathrm{d}\epsilon}
+       & \quad \text{if } a \leq t\\
+    N(a-t,0) e^{-\int\limits_{a-t}^{a} \mu(\epsilon) \mathrm{d}\epsilon} 
+       & \quad \text{if } a \geq t\\
+  \end{cases}
+\]
+ 
+\end{proof}
+
+\section{Existence and Uniqueness Of The Solution } 
+Before we go on to determine the solution of our model by implementing numerical methods we first have to determine if the model is well posed. Here we need to answer the following questions:
+\begin{enumerate}
+Does the system have a solution?\\
+If the solution does exist is it unique? \\
+Last but not least, does the solution continuously depend on the initial conditions?\\
+\end{enumerate}
+
+To accomplish this task we choose a Banach space as the appropriate space to study our system and answer the above questions. We chose the $L^1$ because it is the natural choice for the density since from a physical point of view we require that the density function to be integrable and the mathematical requirement is that our density functions belong to a complete normed linear space.
+
+
  Let $X=L^{1}(0,a) ^4$ with the norm $\Vert \varphi \Vert\Vert_X=\sum_{i=1}^{4} \Vert \varphi_i\Vert_{l^1}$ where $\varphi=(\varphi_1, \varphi_2, \varphi_3,\varphi_4 \in X )$.
- $(X,\Vert. \Vert_X)$ is clearly a Banach Space.\\
+ $(X,\Vert. \Vert_X)$ is our Banach Space.\\
  
  If we consider the operator \\
- $A:D(a) \subset X \longrightarrow X$ defined by \\
+ $A:D(A) \subset X \longrightarrow X$ defined by \\
  
- $$A \varphi = (\frac{-d \varphi_1}{da},\frac{-d \varphi_1}{da},\frac{-d \varphi_2}{da}, \frac{-d \varphi_3}{da}, \frac{-d \varphi_4}{da})^T$$  
+ $$A \varphi = \bigg(\frac{-d \varphi_1}{da},\frac{-d \varphi_1}{da},\frac{-d \varphi_2}{da}, \frac{-d \varphi_3}{da}, \frac{-d \varphi_4}{da}\bigg)^T$$  
  
- where $D(A)=\bigg\lbrace \varphi =(\varphi_1, \varphi_2, \varphi_3, \varphi_4) \in X; \varphi_i \in W_{1}^{1}(0,a)
+ where $D(A)=\bigggg\lbrace \varphi =(\varphi_1, \varphi_2, \varphi_3, \varphi_4) \in X; \varphi_i \in W_{1}^{1}(0,a)
 \quad and  
 \begin{pmatrix}
 \varphi_{1} (0 )\\\varphi_{2} (0) \\ \varphi_{3} (0) \\ \varphi_{4} (0)
 \end{pmatrix} =\begin{pmatrix}
-1 \\ 0\\0\\
-\end{pmatrix} \bigg\rbrace$
+1 \\ 0\\0\\0\\
+\end{pmatrix} \bigggg\rbrace$
 
-and the function $F :\overline{D(A)}\longrightarrow X $ defined by $F \begin{pmatrix}
+and the function\\
+ $F :\overline{D(A)}\longrightarrow X $ defined by $F \begin{pmatrix}
 \varphi_{1} \\ \varphi_{2} \\ \varphi_{3} \\ \varphi_{4}
 \end{pmatrix}=\begin{pmatrix}
 - \lambda (., \upsilon) \varphi_{1}\\ -\lambda(., \upsilon)\varphi_{1} + \gamma \varphi_{3} + \omega \varphi_{4}-(\sigma + \psi)\varphi_{2} \\ \sigma \varphi_{2}-(\rho + \gamma)\varphi_{3} \\ \rho \varphi_{3}-\omega \varphi_{4} \end{pmatrix} $
@@ -258,15 +356,48 @@ $$\lambda (a,\upsilon)= \int_{0}^{a} \beta (a, \upsilon) N(\upsilon) \varphi_{2}
 $\beta (a, \upsilon) \in L^{\infty}( (0,a) \times (0,a)) $\\
 
 Let $u(t) = (s(.,t),d(.,t),r(.,t),q(.,t))^T \in X$. We can rewrite the initial boundary value problem ( \ref{model2}) as the abstract semi linear problem in $X$.
-\begin{equation}
+\begin{equation}\label{CPA}
 \frac{d u(t)}{dt} =A u(t) + F(u (t)) \quad u(0)= u_0 \in X
 \end{equation}
 where $u_{0}(a)=(s_{0}(a), d_{0}(a) , r_{0}(a) , q_{0}(a))^T$
 
-Thus $A$ is the infinitesimal generator of a $C_0$ semi-group $T(t) , \quad t\geq 0$ and $F$ is continuous and locally Lipschitz. Then for each $u_0 \in X$ there exists a maximal interval of existence $[0, t_0]$ and a unique continuous (mild) solution $t\longrightarrow u(t;u_0)$ from $[0,t_0]  to \quad X$ such that 
+Thus $A$ is the infinitesimal generator of a $C_0$ semi-group $T(t) , \quad t\geq 0$ and $F$ is continuous and locally Lipschitz. Then for each $u_0 \in X$ there exists a maximal interval of existence $[0, t_0]$ and a unique continuous (mild) solution $t\longrightarrow u(t;u_0)$ from $[0,t_0] \quad to \quad X$. We use the variation of constants formula to obtain the solution as follows:
+
+We rewrite equation (\ref{CPA}) as follows
+\begin{equation}\label{CPA1}
+\frac{d u(t)}{dt}-A u(t) = F(u (t)) 
+\end{equation}
+
+Thus we have $e^{-At}$ as the integrating factor.\\
+
+We can rewrite equation (\ref{CPA1})  as follows\\
+\begin{equation}\label{CPA2}
+(e^{-At}u(t))^'=e^{-At}F(u(t))
+\end{equation}
+Integrating both sides of equation (\ref{CPA2}) we get \\
+
+\begin{equation}\label{CPA3}
+e^{-At}u(t)=\int_{0}^t e^{-As}F(u(s))ds
+\end{equation}
+ Taking the limits of $[e^{-At}u(t)]_{s=0}^{s=t}=[e^{-At}u(t)-u(0)]$ \\
+ 
+ Substituting into equation (\ref{CPA3}) we get 
+ \begin{eqnarray}
+ e^{-At}u(t)-u(0) &=&\int_{0}^t e^{-As}F(u(s))ds\nonumber \\
+ e^{-At}u(t) &=&u(0)+\int_{0}^t e^{-As}F(u(s))ds\nonumber \\
+ u(t) &=&e^{At}u(0)+e^{At}\int_{0}^t e^{-As}F(u(s))ds\nonumber \\
+ u(t) &=&e^{At}u(0)+\int_{0}^t e^{At} e^{-As}F(u(s))ds\nonumber \\
+ u(t) &=&e^{At}u(0)+\int_{0}^t e^{A(t-s)} F(u(s))ds\nonumber \\
+ \end{eqnarray}
+ 
+Thus we finally have : 
+ 
 \begin{equation}
 u(t;u_0) = T(t)u_0 + \int_{0}^{t}T(t-s)F(u(s;u_0))ds
 \end{equation}
+
+\
+
 \section{Computation of the Reproduction Number}
 
 The drug free equilibrium of our normalised model is given as \[E_0 = (1,0,0,0)\]
@@ -281,49 +412,77 @@ $s(a,t)=1+\bar{s(a)}e^{\kappa t}$ \; $d(a,t)=\bar{d(a)}e^{\kappa t}$\;
 $r(a,t)=\bar{r(a)}e^{\kappa t}$\;
 $\lambda(a,t)=\lambda_0 e^{\kappa t} + 0(e^{2 \kappa t})$ \\
 Where
-\[\lambda_0 = \int_{0}^{\infty}\bar{d(a)} B_{\infty} (a) da\]
+\begin{equation}\label{lambda}
+\lambda_0= \int_{0}^{\infty}\bar{d(a)} B_{\infty} (a) da\]
+\end{equation} 
 
 Below we linearise equation (\ref{model2})\\
 The linear form of the equation for $d(a,t)$ is \\
 
-\[te^{\kappa t} \bar{d}(a) + e^{\kappa t} \frac{d \bar{d}(a)}{da}= \lambda_0 e^{\kappa t}( 1+ \bar{s}(a)) + \gamma (a) \bar{r}(a) e^{\kappa t} - (\sigma (a) + \psi (a))\bar{d}(a) e^{\kappa t}\]
+\[\kappa e^{\kappa t} \bar{d}(a) + e^{\kappa t} \frac{d \bar{d}(a)}{da}= \lambda_0 e^{\kappa t}( 1+ \bar{s}(a))- (\sigma  + \psi )\bar{d}(a) e^{\kappa t}\]
 
 Dividing by $e^{\kappa t }$ and considering the linear part of the equation we get
 \begin{equation}\label{d}
- t \bar{d}(a) +  \frac{d \bar{d}(a)}{da}= \lambda_0  + \gamma (a) \bar{r}(a) - (\sigma (a) + \psi (a))\bar{d}(a) 
+ \kappa \bar{d}(a) +  \frac{d \bar{d}(a)}{da}= \lambda_0 - (\sigma  + \psi)\bar{d}(a) 
  \end{equation}
 
-We do the same for the equation of the compartment $r(a,t)$ to get
-\begin{eqnarray}\label{r}
- t \bar{r}(a) + \frac{d\bar{r}(a)}{da}= \sigma (a) \bar{d}(a)-(\rho (a) +\gamma(a))\bar{r}(a)
- \end{eqnarray}
+%We do the same for the equation of the compartment $r(a,t)$ to get
+%\begin{eqnarray}\label{r}
+% t \bar{r}(a) + \frac{d\bar{r}(a)}{da}= \sigma (a) \bar{d}(a)-(\rho (a) +\gamma(a))\bar{r}(a)
+% \end{eqnarray}
  
  Equation (\ref{d} ) is integrated as follows:
  \begin{equation}\label{d1}
- (t +\sigma (a) + \psi (a))\bar{d}(a)  +  \frac{d \bar{d}(a)}{da}= \lambda_0  + \gamma (a) \bar{r}(a) 
+ (\kappa +\sigma + \psi)\bar{d}(a)  +  \frac{d \bar{d}(a)}{da}= \lambda_0  
  \end{equation}
  Using the integrating factor we obtain the following:
  \begin{equation}\label{d3}
- \bar{d}(a)=e^{-(\sigma (a)+ \psi(a) + \kappa)a}\int_{o}^{a} e^{(\sigma (\alpha)+ \psi(\alpha) + \kappa)}[\lambda_0 + \gamma(\alpha)\bar{r}(\alpha)] d \alpha
+ \bar{d}(a)=e^{-(\sigma+ \psi + \kappa)a}\int_{0}^{a} e^{(\sigma + \psi( + \kappa) \alpha} \lambda_0  d \alpha
  \end{equation}
  
- Similarly we get an expression of $\bar{r} a$ by using the integrating factor on equation (\ref{r}) as follows:\\
- 
-  First we rearrange the equation (\ref{r}) to get
- \begin{eqnarray}\label{r1}
- (t+\rho (a) +\gamma(a))\bar{r}(a) + \frac{d\bar{r}(a)}{da}= \sigma (a) \bar{d}(a)
- \end{eqnarray}
- After applying the integrating factor to equation (\ref{r1}) we get the following expression for $\bar{r}a$
- 
- \begin{equation}\label{r3}
- \bar{r}(a)=e^{-(\rho(a)+\gamma(a)+\kappa)a}\int_{0}^{a}e^{(\rho(\alpha)+\gamma(\alpha)+\kappa)}\sigma(\alpha) \bar{d}(\alpha) d \alpha
- \end{equation}
- 
- Substituting equation (\ref{r3}) into equation (\ref{d3}) we get the following expression of 
- $\bar{d}a$
+ We can rewrite equation (\ref{d3}) as follows:
  \begin{equation}\label{d4}
- \bar{d}(a)=e^{-(\sigma (a)+ \psi(a) + \kappa)a}\int_{o}^{a} e^{(\sigma (\alpha)+ \psi(\alpha) + \kappa)}[\lambda_0 + \gamma(\alpha)]e^{-(\rho(\alpha)+\gamma(\alpha)+\kappa)\alpha}\int_{0}^{a}e^{(\rho(b)+\gamma(b)+\kappa)}\sigma(b) \bar{d}(b) db d \alpha
+ \bar{d}(a)=\lambda_0  e^{-(\sigma + \psi + \kappa)a}\int_{0}^{a} e^{(\sigma + \psi + \kappa) \alpha}  d \alpha
  \end{equation}
+ Substituting equation (\ref{d4}) into equation (\ref{lambda}) we get \\
+ 
+ 
+ \begin{equation}\label{lambda1}
+\lambda_0= \lambda_0 \int_{0}^{\infty}   \int_{0}^{a} e^{(\sigma + \psi + \kappa)(\alpha-a)}  B_{\infty} (a) d \alpha da
+\end{equation} 
+
+Here we change our variables as follows:\\
+\[a-\alpha= \zeta\] and we change the order of integration as follows:\\
+
+\begin{equation}\label{lambda2}
+\lambda_0= \lambda_0 \int_{0}^{\infty}   \int_{0}^{\infty} e^{(\sigma + \psi + \kappa)(-\zeta)}  B_{\infty} (\zeta + \alpha) d \zeta d \alpha 
+\end{equation} 
+
+Dividing both sides by $\lambda_0$ we obtain the following equation\\
+\begin{equation}\label{lambda3}
+1= \int_{0}^{\infty}   \int_{0}^{\infty} e^{-(\sigma + \psi + \kappa)\zeta}  B_{\infty} (\zeta + \alpha) d \zeta d \alpha
+\end{equation} 
+
+Equation (\ref{lambda3}) is a form of the characteristic equation of Euler and Lotka from which we can obtain the intrinsic growth rate if we substitute $\kappa=0$ into equation (\ref{lambda3})
+
+
+% Similarly we get an expression of $\bar{r} a$ by using the integrating factor on equation (\ref{r}) as follows:\\
+% 
+%  First we rearrange the equation (\ref{r}) to get
+% \begin{eqnarray}\label{r1}
+% (t+\rho (a) +\gamma(a))\bar{r}(a) + \frac{d\bar{r}(a)}{da}= \sigma (a) \bar{d}(a)
+% \end{eqnarray}
+% After applying the integrating factor to equation (\ref{r1}) we get the following expression for $\bar{r}a$
+% 
+% \begin{equation}\label{r3}
+% \bar{r}(a)=e^{-(\rho(a)+\gamma(a)+\kappa)a}\int_{0}^{a}e^{(\rho(\alpha)+\gamma(\alpha)+\kappa)}\sigma(\alpha) \bar{d}(\alpha) d \alpha
+% \end{equation}
+% 
+% Substituting equation (\ref{r3}) into equation (\ref{d3}) we get the following expression of 
+% $\bar{d}a$
+% \begin{equation}\label{d4}
+% \bar{d}(a)=e^{-(\sigma (a)+ \psi(a) + \kappa)a}\int_{o}^{a} e^{(\sigma (\alpha)+ \psi(\alpha) + \kappa)}[\lambda_0 + \gamma(\alpha)]e^{-(\rho(\alpha)+\gamma(\alpha)+\kappa)\alpha}\int_{0}^{a}e^{(\rho(b)+\gamma(b)+\kappa)}\sigma(b) \bar{d}(b) db d \alpha
+% \end{equation}
  
 \section{Numerical Solution}
 To discretize our model we make use of the forward difference where
@@ -349,4 +508,23 @@ S_{i}^{j} &=& \frac{S^{j-1}_{i-1}}{1+ h(\mu_i + \lambda_{i}^{j})} \nonumber \\
 D^{j}_{j} &=& \frac{h(\lambda_{i}^{j}S_{i}^{j} + \gamma_i R_{i}^{j} + \omega_i Q_{i}^{j}) + D_{i}^{j}}{1+ h (\mu_i + \sigma_i + \psi_i)} \nonumber \\
 R_{i}^{j}&=& \frac{R_{i-1}^{j-1} +h \sigma_i D_{i}^{j}}{1+ h(\mu_i + \rho_i + \gamma_i)} \\
 Q_{i}^{j}&=& \frac{Q^{j-1}_{i-1}+h \rho_i R_{i}^{j_}}{1+h(\mu_i+\omega_i)} \nonumber
+\end{eqnarray}
+
+For the above scheme we obtain lower triangular matrices for the substance abuse compartments in the simulations. We therefore opt to use the central difference scheme which employs the following:
+
+\begin{eqnarray}\label{discrete form1}
+\frac{\partial X(a,t)}{\partial a} + \frac{\partial X(a,t)}{\partial t} & \approx & \frac{X(a_{i},t_{j})-X(a_{i-1}, t_{j}) + X(a_{i},t_{j})-X(a_{i},t_{j-1})}{h} \nonumber \\ 
+& = & \frac{2 X(a_{i},t_{j})-X(a_{i-1}, t_{j-1})+X(a_{i},t_{j-1})}{h} \\
+& = & \frac{2 X^{j}_{i}-(X^{j}_{i-1}) + X^{j-1_{i}}}{h} \nonumber
+\end{eqnarray}
+
+Using the above scheme our system of equations become :
+
+\begin{eqnarray}\label{sys2}
+\frac{2 S^{j}_{i}-(S^{j}_{i-1}) + S^{j-1_{i}}}{h}&=& -(\mu_{i} + \lambda_{i}^{j})S_{i}^{j} \nonumber \\
+2 S_{i}^{j} + (\mu_{i} + \lambda_{i}^{j})S_{i}^{j}&=& S_{i}^{j} + S^{j}_{i} \nonumber \\
+S_{i}^{j}&=& \frac{S_{i-1}^{j}+ S_{i}^{j-1}} {2+h(\mu_{i}+\lambda_{i}^{j}}
+
+
+
 \end{eqnarray}

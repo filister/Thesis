@@ -1,0 +1,64 @@
+\chapter{4}
+\section{Fitting model to Cape Town data}
+The data that we are using was obtained from the reports from the South African Community Epidemiology Network on Drug Use. According to the last currently available report published in June 2015 the data was collected from 33 specialist centres in Cape Town on a monthly basis. We are using data from July 2005 till December 2014 and the data is available for every half year.
+
+\begin{table}[h!]\label{data1}
+\noindent\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+\multicolumn{13}{|c|}{AGE GROUPS} \\
+\hline
+ Time&10-14&15-19&20-24&25-29&30-34&35-39&40-44&45-49&50-54&55-59&60-64&65+ \\ \hline
+1&  98 &576& 505&257   &200&159& 137& 89  &61&27& 10&8   \\ \hline
+2&   77&647&579 & 340  &284&239&174 & 134  &80&51&27 &19   \\ \hline
+3&  108&652& 683& 342  &279&241& 182&143   &75&47& 25&18   \\ \hline
+4& 112& 688  &661&357&253 & 230  &226&149&85 &56 &25 &13\\ \hline
+5& 107&704& 708  &437&276&254 & 201  &157&84& 76&25   &21 \\ \hline
+6& 71 &553& 582& 435  &248&214&172 & 150  &97&55&36 & 16 \\ \hline  
+7& 85 & 569  &691&463&278 &193   &187&149&91 &53 &23&14 \\ \hline
+8& 128&764& 848&633   &358&324&237 & 157  &103&62&25 &14 \\ \hline
+9& 61&545&607 & 488  &283&215&179 & 120  &60&42&21 &9 \\ \hline
+10& 98&595& 676&627   &339&258&216 &114  &92&41&28 &11   \\ \hline
+11& 119&691&676 &576   &334&245&193 &144   &92&41&28 &11\\ \hline
+ 12&116&496&604 &616   &322&274&192 & 140  &83&45& 18&11 \\ \hline
+13& 76&353&694 &605   &334&205&166 & 137  &79&44& 16&8   \\ \hline
+14&  170 &696&886 &845   &466&276&196 & 151  &100&56&25 &13   \\ \hline  
+15& 123 &531&629 & 674  &433&255&166 &155   &90&53&28 &12 \\ \hline 
+16&  125&617&751 &825   &489&308&223 &146   &104&62&24 &19   \\ \hline
+17&187&701&574 &755   &459&264&195 &140   &85&62&19 &21 \\ \hline
+18& 167&635&561 &796   &504&255&219 &159   &96&65&18 &11 \\ \hline
+19& 185&597&561 &725   &501&302&201 &154   &92&53&28 &19   \\ \hline
+\end{tabular}
+\caption{Data on the people in rehabilitation in some centres of Western Cape for 13 age groups from 2005 to 2014}
+\end{table} 
+
+
+We modify the data in table \ref{data1} to obtain data for specific age groups by considering the average age group of each age group. To do this we take the middle age of each age group and number of people is taken as the average per age from the given age group.
+
+\begin{table}[h!]\label{data2}
+\noindent\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+\multicolumn{13}{|c|}{AGE GROUPS} \\
+\hline
+ Time&12&17&22&27&32&37&42&47&52&57&62&67 \\ \hline
+1&  19.6 &115.2& 101&51.4  &40&31.8& 27.4& 17.8 &12.2&5.4& 2&1.6   \\ \hline
+2&   15.4&129.4&115.8 & 68 &56.8&47.8&34.8 & 26.8 &16&10.2&5.4&3.8 \\ \hline
+3&  21.6&130.4& 13.6& 68.4  &55.8&48.2&36.4&28.6 &15&9.4&5&3.6   \\ \hline
+4& 22.4&137.6  &132.2&71.4&50.6 &46  &45.2&45.2&17 &11.2 &5 &2.6\\ \hline
+5&21.4&140.8&141.6  &87.4&55.2&50.8 &40.2  &31.4&16.8&15.2&5   &4.2 \\ \hline
+6& 14.2 &110.6&116.4&87  &49.6&42.8&34.4& 30  &19.4&11&7.2 & 3.2 \\ \hline  
+7& 17 & 113.8  &138.2&92.6&55.6 &38.6   &37.4&29.8&18.2 &10.6 &4.6&2.8 \\ \hline
+8& 25.6&152.8&169.6&126.6   &71.6&64.8&47.4 & 31.4  &20.6&12.4&5 &2.8 \\ \hline
+9& 12.2&109&121.4&97.6  &56.6&43&35.8 &24  &12&8.4 &4.2&1.9 \\ \hline
+10& 19.6&119&135.2&125.4   &67.8&51.6&43.2 &22.8  &18.4&8.2&5.6 &2.2   \\ \hline
+11& 23.8&138.2&135.2 &115.2   &66.8&49&38.6 &28.8  &18.4&8.2&5.6 &2.2\\ \hline
+ 12&23.2&99.2&120.8 &123.2   &64.4&54.8&38.4& 28 &16.6&9& 3.6&2.2\\ \hline
+13& 15.2&70.6&138.8 &121  &66.8&41&33.2 & 27.4 &15.8&8.8& 3.2&1.6   \\ \hline
+14&  34 &139.2&177.2 &169   &93.2&55.2 & 39.2&30.2 &20&11.2&5 &2.6   \\ \hline  
+15& 25.6 &106.2&125.8 & 134.8  &86.6&51&33.2 &31   &18&10.6&5.6 &2.4 \\ \hline 
+16&  25&123.4&150.2 &165   &97.8&61.6&44.6 &29.2  &20.8&12.4&4.8&3.8   \\ \hline
+17&37.4&140.2&114.8 &151   &91.8&52.8&39 &28   &17&12.4&3.8 &4.2 \\ \hline
+18& 33.4&127&112.2 &159.2   &100.8&51&43.8 &31.8   &19.2&13&3.6 &2.2 \\ \hline
+19& 37&119.4&112.2 &145   &100.21&60.4&40.2 &30.8   &18.4&10.6&5.6 &3.8 \\ \hline
+\end{tabular}
+\caption{Modified data on the people in rehabilitation in some centres of Western Cape for 13 age groups from 2005 to 2014}
+\end{table} 
